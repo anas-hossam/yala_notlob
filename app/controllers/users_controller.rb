@@ -10,7 +10,18 @@ class UsersController < ApplicationController
       format.json { render json: @users }
     end
   end
-
+  def all
+  @users = User.all
+  @groups = Group.all
+  names=[]
+  @users.each do |i|
+    names.append(i.name)
+  end
+  @groups.each do |i|
+    names.append(i.name)
+  end
+  render text: names.inspect
+end
 
   def newfollow
     @email = params[:user][:email]

@@ -10,6 +10,9 @@
 	<div class="panel panel-default">
 		<div class="panel-heading"><div class="container"><h4>Latest Orders</h4></div></div>
 		<div class="panel-body" id="myOrders"></div>
+		<% @notifications.each do |n| %>
+			<h3><%= n.message %></h3>
+		<% end %>
 	</div>
 </div>
 <div class="col-md-6">

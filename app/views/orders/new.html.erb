@@ -1,0 +1,28 @@
+  <h2>Notifications</h2>
+<div id="messages">
+  <!-- <select id="nots" class="dropdown alert pull-right" >
+
+    <% @notifications.each do |n| %>
+      <option><%= n.message %></option>
+    <% end %>
+  </select> -->
+   <!-- <%= render partial: 'notifications/notification', collection: @notifications %> -->
+</div>
+<script type="text/javascript">
+  $(function() {
+    $('#nots option').last().prop('selected',true);
+  })
+</script>
+<h1>New Order</h1>
+<div style="float:left;max-width:30%;">
+  <%= render 'form', order: @order %>
+
+</div>
+
+<div id="invitedFriends" style="text-align:center;float:right;width:500px;height:350px;border:1px groove black;">
+  <h3>Friends Invited</h3>
+
+</div>
+<div style="clear:both;">
+  <%= link_to 'Back', orders_path %>
+</div>

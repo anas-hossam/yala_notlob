@@ -23,7 +23,13 @@ white{
 	color: #fff;
 }
 
-
+#messages {
+  max-height: 300px;
+  overflow-y: auto;
+  .avatar {
+    margin: 0.5rem;
+  }
+}
 .notif{
 	text-align:center;
 	cursor: pointer;

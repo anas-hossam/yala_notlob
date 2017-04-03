@@ -1,0 +1,77 @@
+<script>
+$( function() {
+  var availableTags =[];
+  $.ajax({
+    url:"/all",
+    method:"GET",
+    success:function(data){
+      names=JSON.parse(data)
+      for(i=0;i<names.length;i++){
+        availableTags[i]=names[i]
+      }
+      console.log("users:"+ availableTags);
+    }
+  })
+  $( "#friends" ).autocomplete({
+    source: availableTags
+  });
+   $( "#friends" ).on( "blur", function( event, ui ) {
+     $("#invitedFriends").append("<div class='col-md-2' style='border:1px solid black; margin:5px;max-height:50px;'><h4>"+$(this).val()+"</h4></div>")
+     // dispatcher.trigger 'invite.new',true
+   } );
+
+} );
+
+</script>
+<%= form_for @order, html: { multipart: true } do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :meal %>
+    <%= f.text_field :meal %>
+  </div>
+
+  <!-- <div class="field">
+    <%= f.label :user_id %>
+    <%= f.text_field :user_id %>
+  </div> -->
+
+  <div class="field">
+    <%= f.label :group_id %>
+    <%= f.collection_select(:group_id, Group.all, :id, :name ) %>
+
+  </div>
+
+  <div class="field">
+    <%= f.label :restaurant %>
+    <%= f.text_field :restaurant %>
+  </div>
+
+  <div class="field ui-widget">
+    <label for="friends">Friends</label>
+    <input type="text" name="friends" id="friends" value="">
+  </div>
+
+  <div class="field">
+    <%= f.label :order_image %>
+       <%= f.file_field :order_image %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<!-- <form class="" action="" method="post">
+  <input type="text" id="message" name="body" value="">
+  <input type="submit" id="new_invite" name="submit" value="Invite">
+</form> -->

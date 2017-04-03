@@ -35,7 +35,6 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     if @email !=""
      @user = User.find_by_email(@email)
-
       if @user != nil
        if current_user != @user.id
          if current_user.following?(@user)

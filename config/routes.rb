@@ -1,9 +1,18 @@
 Rails.application.routes.draw do
 
+  resources :notifications
+  resources :orders do
+    resources :items
+  end
   get 'follows/index'
 
   get 'home/index'
+  get 'all' => 'users#all'
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+  
+  mount ActionCable.server => '/cable'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :users do
      resources :groups
@@ -28,6 +37,6 @@ Rails.application.routes.draw do
      end
   end
  #root 'users#index'
- root  'home#index' 
+ root  'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
