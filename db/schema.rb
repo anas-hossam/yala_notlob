@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20170403225517) do
 
-  create_table "follows", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "follows", force: :cascade do |t|
     t.string   "followable_type",                 null: false
     t.integer  "followable_id",                   null: false
     t.string   "follower_type",                   null: false
@@ -24,7 +27,7 @@ ActiveRecord::Schema.define(version: 20170403225517) do
     t.index ["follower_id", "follower_type"], name: "fk_follows", using: :btree
   end
 
-  create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.integer  "user_id"
     t.datetime "created_at", null: false
@@ -32,28 +35,28 @@ ActiveRecord::Schema.define(version: 20170403225517) do
     t.index ["user_id"], name: "index_groups_on_user_id", using: :btree
   end
 
-  create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "items", force: :cascade do |t|
     t.string   "name"
     t.integer  "user_id"
     t.integer  "order_id"
     t.integer  "amount"
-    t.float    "price",      limit: 24
-    t.text     "comment",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.float    "price"
+    t.text     "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_items_on_order_id", using: :btree
     t.index ["user_id"], name: "index_items_on_user_id", using: :btree
   end
 
-  create_table "notifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
-    t.text     "message",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_notifications_on_user_id", using: :btree
   end
 
-  create_table "order_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "order_details", force: :cascade do |t|
     t.integer  "user_id"
     t.boolean  "joined"
     t.datetime "created_at", null: false
@@ -61,7 +64,7 @@ ActiveRecord::Schema.define(version: 20170403225517) do
     t.index ["user_id"], name: "index_order_details_on_user_id", using: :btree
   end
 
-  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "orders", force: :cascade do |t|
     t.string   "meal"
     t.integer  "user_id"
     t.integer  "group_id"
@@ -69,9 +72,9 @@ ActiveRecord::Schema.define(version: 20170403225517) do
     t.integer  "joined"
     t.integer  "invited"
     t.string   "status"
-    t.text     "image",                    limit: 65535
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.text     "image"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.string   "order_image_file_name"
     t.string   "order_image_content_type"
     t.integer  "order_image_file_size"
@@ -80,7 +83,7 @@ ActiveRecord::Schema.define(version: 20170403225517) do
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
-  create_table "user_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "user_groups", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "group_id"
     t.datetime "created_at", null: false
@@ -89,7 +92,7 @@ ActiveRecord::Schema.define(version: 20170403225517) do
     t.index ["user_id"], name: "index_user_groups_on_user_id", using: :btree
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "password"
