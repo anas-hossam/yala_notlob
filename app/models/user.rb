@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :orders
   has_many :items
   has_many :notifications
+  has_many :order_details
 
 
 # def name

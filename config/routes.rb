@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :order_details
   resources :notifications
   resources :orders do
     resources :items
