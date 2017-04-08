@@ -153,6 +153,7 @@
     <orderEntry type="library" scope="PROVIDED" name="font-awesome-rails (v4.7.0.1, RVM: ruby-2.4.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.3.7, RVM: ruby-2.4.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hashie (v3.5.5, RVM: ruby-2.4.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="httpclient (v2.8.3, RVM: ruby-2.4.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v0.8.1, RVM: ruby-2.4.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jbuilder (v2.6.3, RVM: ruby-2.4.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jquery-rails (v4.3.1, RVM: ruby-2.4.0) [gem]" level="application" />
@@ -182,6 +183,8 @@
     <orderEntry type="library" scope="PROVIDED" name="paperclip (v4.3.7, RVM: ruby-2.4.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pg (v0.20.0, RVM: ruby-2.4.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="puma (v3.8.2, RVM: ruby-2.4.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="pusher (v1.3.1, RVM: ruby-2.4.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="pusher-signature (v0.1.8, RVM: ruby-2.4.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v2.0.1, RVM: ruby-2.4.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-protection (v2.0.0.rc2@345217, RVM: ruby-2.4.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.6.3, RVM: ruby-2.4.0) [gem]" level="application" />

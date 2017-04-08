@@ -3,6 +3,7 @@ class OrderDetailsController < ApplicationController
 
   # GET /order_details
   # GET /order_details.json
+  # protect_from_forgery
   def index
     @order_details = OrderDetail.all
   end
@@ -20,6 +21,10 @@ class OrderDetailsController < ApplicationController
   # GET /order_details/1/edit
   def edit
   end
+
+  # def add
+  #   render text: "test"
+  # end
 
   # POST /order_details
   # POST /order_details.json
@@ -39,6 +44,11 @@ class OrderDetailsController < ApplicationController
 
   # PATCH/PUT /order_details/1
   # PATCH/PUT /order_details/1.json
+  def join
+    @order_detail=OrderDetail.find(params[:id])
+    @order_detail.joined = 1
+    @order_detail.save
+  end
   def update
     respond_to do |format|
       if @order_detail.update(order_detail_params)

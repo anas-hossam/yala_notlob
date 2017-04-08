@@ -23,7 +23,12 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <!-- #notification is here -->
-      
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="fa fa-bell"></span><span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu" id="notify_list">
+
+          </ul>
+        </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -32,13 +37,13 @@
             <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
           </ul>
             <!-- <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li> -->
-          <% else %>
+    <% else %>
          <ul class="nav navbar-nav navbar-right">
           <li><%= link_to 'Log In', new_user_session_path %></li>
           <li role="separator" class="divider"></li>
           <li><%= link_to 'Sign Up', new_user_registration_path %></li>
       </ul>
-    </div>
+
     <% end %>
         </li>
       </ul>
@@ -46,3 +51,4 @@
     <%= javascript_include_tag "entangled-js.js" %>
   </div><!-- /.container-fluid -->
 </nav>
+

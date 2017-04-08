@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
   # GET /users
   # GET /users.json
+  # protect_from_forgery
   def index
     @users = User.all
 
@@ -11,17 +12,28 @@ class UsersController < ApplicationController
     end
   end
   def all
-  @users = User.all
-  @groups = Group.all
-  names=[]
-  @users.each do |i|
-    names.append(i.name)
+    @users = User.all
+    @groups = Group.all
+    names=[]
+    @users.each do |i|
+      names.append(i.name)
+    end
+    @groups.each do |i|
+      names.append(i.name)
+    end
+    render text: names.inspect
   end
-  @groups.each do |i|
-    names.append(i.name)
-  end
-  render text: names.inspect
-end
+
+  # def invite
+  #    @test = "test"
+  #
+  #   # invited = params[:invited]
+  #    render text: @test
+  #   #  respond_to do |format|
+  #   #    format.html # index.html.erb
+  #   #    format.json { render json: @test }
+  #   #  end
+  # end
 
   def newfollow
     @email = params[:user][:email]

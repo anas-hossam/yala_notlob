@@ -4,7 +4,7 @@ jQuery(document).on 'turbolinks:load', ->
     messages_to_bottom = -> messages.scrollTop(messages.prop("scrollHeight"))
 
     messages_to_bottom()
-  App.messages = App.cable.subscriptions.create {
+    App.messages = App.cable.subscriptions.create {
       channel: "OrdersChannel"
     },
     connected: ->
@@ -18,7 +18,7 @@ jQuery(document).on 'turbolinks:load', ->
       messages.append(data['message']+" invited to Order<br>")
     send_message: (message) ->
       @perform 'send_message', message: message
-      messages.append(message+" invited to Order<br>")
+#      messages.append(message+" invited to Order<br>")
      $('#friends').blur (e) ->
         $this = $(this)
         invited = $this

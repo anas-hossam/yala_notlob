@@ -4,7 +4,7 @@
 <h1>Orders</h1>
 <%= link_to 'New Order', new_order_path,id: "newOrder",class: "pull-right" %>
 
-<table class="table table-hover">
+<table class="table table-responsive table-bordered table-hover">
   <thead>
     <tr>
       <th>Meal</th>
@@ -26,9 +26,14 @@
         <td><%= order.user.name %></td>
         <td><%= order.group.name %></td>
         <td><%= order.restaurant %></td>
-        <td><%= order.joined %></td>
+        <td><%= order.joined %></td> <!-- must be reviewed  -->
         <td><%= order.invited %></td>
-        <td><%= order.status %></td>
+        <td>
+          <%= order.status %>
+          <% if order.user_id == current_user.id && order.status != "Finished" %>
+              <span><input class="complete btn btn-primary" name="<%= order.id %>" value="Completed" type="submit"></span>
+          <% end %>
+        </td>
         <td><div class="media">
           <div class="media-left">
           <%= link_to image_tag(order.order_image.url(:thumb), class: 'media-object'), order.order_image.url, target: '_blank' %>          </div>
@@ -41,5 +46,24 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
+<script>
+$(function (e) {
+    $(".complete").on("click", function (e) {
+        e.preventDefault()
+        data=$(this).attr("name")
+        console.log("order id ="+data)
+        $.ajax({
+            url: "/complete/" + data,
+            method: "GET",
+            success:function (success) {
+                console.log("success")
+            },
+            error:function (error) {
+                console.log("error")
+            }
+
+        })
+    })
+})
+</script>

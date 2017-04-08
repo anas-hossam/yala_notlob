@@ -9,6 +9,11 @@ Rails.application.routes.draw do
 
   get 'home/index'
   get 'all' => 'users#all'
+  get '/complete/:id', to: 'orders#complete'
+  get '/join/:id', to: 'order_details#join'
+  # match 'add', to: 'order_details#add', via: [:post]
+  # post 'invite' => 'users#invite'
+  # match 'invites', to: 'users#invite', via: [:post]
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'

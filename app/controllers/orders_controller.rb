@@ -26,16 +26,64 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
   end
-
+  def complete
+    @order=Order.find(params[:id])
+    @order.status = "Finished"
+   @order.save
+  end
   # POST /orders
   # POST /orders.json
   def create
+    puts "test000"
+    invited= params[:friends_invited]
+
+    invited.each do |i|
+      @group_invited = Group.where(name: i)
+      @user_invited = User.where(name: i)
+      if(@group_invited.present?)
+        puts "test-group"
+        @group_id = @group_invited.ids
+        puts @group_id
+        @members = UserGroup.where(group_id: @group_id).all
+        puts @members.inspect
+        @members.each do |m|
+          @group_invite = OrderDetail.new
+          @group_invite.user_id = m.user_id
+          @group_invite.joined = 0
+         puts @group_invite.inspect
+          if @group_invite.save
+            puts "Group Invited"
+          end
+        end
+      else
+        puts "test-user"
+        user_invs = OrderDetail.new
+        puts @user_invited.ids.class
+        user_invs.user_id = @user_invited.ids[0]
+        puts user_invs.user_id
+        user_invs.joined = 0
+        puts user_invs.inspect
+        if user_invs.save
+          puts "User Invited"
+        end
+      end
+    end
+    puts params.inspect
     @order = Order.new(order_params)
     @order.user_id = current_user.id
+    @order.invited = invited.length
+    @order.joined = invited.length
+    @order.status = "waiting"
     respond_to do |format|
       if @order.save
         format.html { redirect_to orders_path, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
+        ##################################### test pusher####################################
+        Pusher.trigger('my-channel', 'my-event', {
+            message: current_user.name.to_s<<" invited  "<<invited.join(",")<<" to "<<@order.meal,
+            id: @order.id
+        })
+        ##################################### test pusher####################################
       else
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }

@@ -1,6 +1,9 @@
+
 <script>
+
 $( function() {
   var availableTags =[];
+  var people_invited =[];
   $.ajax({
     url:"/all",
     method:"GET",
@@ -17,10 +20,45 @@ $( function() {
   });
    $( "#friends" ).on( "blur", function( event, ui ) {
 
-     $("#invitedFriends").append("<div class='col-md-2' style='border:1px solid black; margin:5px;max-height:50px;'><h4>"+$(this).val()+"</h4></div>")
+       people_invited.push($(this).val())
+//       $.ajax({
+//           url:"/add",
+//           method:"POST",
+//           data:{data:$(this).val()},
+//           success:function(data){
+//               names=JSON.parse(data)
+//              console.log(names);
+//           }
+//       })
+     $("#invitedFriends").append("<div class='col-md-2' style='border:1px solid black; margin:5px;max-height:50px;'><h4 class='friend_invited'>"+$(this).val()+"</h4></div>")
+    $("#friends_invited").append("<input type='checkbox' name='friends_invited[]' value="+$(this).val()+" checked>"+$(this).val()+"")
      // dispatcher.trigger 'invite.new',true
    } );
 
+//  $("form").on("submit", function (e) {
+////      $.ajax({
+////          url:"/invites",
+////          method:"POST",
+////          data:{invited:JSON.stringify(people_invited)},
+////          dataType: "json",
+////          success:function(data){
+////              invites=JSON.parse(data)
+////              console.log("invited users :"+ invites);
+////          },
+////          error:function (error) {
+////              console.log("error")
+////          }
+////      })
+//      e.preventDefault();
+//
+////      people_invited=people_invited.serializeArray()
+//      console.log(JSON.stringify(people_invited))
+//      data=$(this).serialize()
+//      data+=JSON.stringify(people_invited)
+//      console.log(data)
+//      $.post($(this).attr("action"),data)
+//
+//  })
 } );
 
 </script>
@@ -62,6 +100,11 @@ $( function() {
     <label for="friends">Friends</label>
     <input type="text" name="friends" id="friends" value="">
   </div>
+
+    <div class="field" id="friends_invited">
+      <label for="friends_invited">Friends_Invited</label>
+
+    </div>
 
   <div class="field">
     <%= f.label :order_image %>

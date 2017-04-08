@@ -36,6 +36,71 @@
  <div class="push"></div>
 
  </div>
+  <!---------------------------------------- Test Pusher----------------------------------------------------------------->
+  <!--<script src="https://js.pusher.com/4.0/pusher.min.js"></script>-->
+  <!--<script>-->
+<!--
+//      // Enable pusher logging - don't include this in production
+//      Pusher.logToConsole = true;
+//
+//      var pusher = new Pusher('fe81d712cb3fb9c96918', {
+//          cluster: 'eu',
+//          encrypted: true
+//      });
+//
+//      var channel = pusher.subscribe('my-channel');
+//      channel.bind('my-event', function(data) {
+//          alert(data.message);
+//        var list=document.getElementById("notify_list");
+////         Don't forget add here link like in production
+//
+<!--////            <input id='join' value='Join' type='submit' name='' class='joined btn btn-success ' >-->
+       <!--});-->
+  -->
+  <!--</script>-->
 
+  <!--############################################# Production ##########################################################-->
+  <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+  <script>
+
+      // Enable pusher logging - don't include this in production
+//      Pusher.logToConsole = true;
+
+      var pusher = new Pusher('1db7b63c27bdfa0130d9', {
+          cluster: 'eu',
+          encrypted: true
+      });
+
+      var channel = pusher.subscribe('my-channel');
+      channel.bind('my-event', function(data) {
+          alert(data.message);
+        var list=document.getElementById("notify_list");
+            list.innerHTML+="<li class='list-item'><a href='<%= @host %>/orders/"+data.id+"'>"+data.message+"</a></li>";
+    });
+
+  </script>
+  <!---------------------------------------- Test Pusher ---------------------------------------------------------------->
+  <!--<script>-->
+  <!--
+//  $(function (e) {
+//      $(".joined").on("click",function (e) {
+//          e.preventDefault()
+//          data=$(this).attr("name")
+//          console.log("joined id ="+data)
+//          $.ajax({
+//              url: "/join/" + data,
+//              method: "GET",
+//              success:function (success) {
+//                  console.log("success")
+//              },
+//              error:function (error) {
+//                  console.log("error")
+//              }
+//
+//          })
+//      })
+//  })
+-->
+  <!--</script>-->
  </body>
  </html>
