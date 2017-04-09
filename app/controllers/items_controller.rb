@@ -35,6 +35,11 @@ class ItemsController < ApplicationController
       if @item.save
         format.html { redirect_to order_path(@order), notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
+        Pusher.trigger('items-channel', 'last-items', {
+            message: @item,
+            username: current_user.name,
+            ordermeal: @order.meal
+        });
       else
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }

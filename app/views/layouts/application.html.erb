@@ -56,7 +56,6 @@
 //
 <!--////            <input id='join' value='Join' type='submit' name='' class='joined btn btn-success ' >-->
        <!--});-->
-  -->
   <!--</script>-->
 
   <!--############################################# Production ##########################################################-->
@@ -70,16 +69,63 @@
           cluster: 'eu',
           encrypted: true
       });
+//    Depeloment
+//      var pusher = new Pusher('fe81d712cb3fb9c96918', {
+//          cluster: 'eu',
+//          encrypted: true
+//      });
 
       var channel = pusher.subscribe('my-channel');
       channel.bind('my-event', function(data) {
-          alert(data.message);
+          alert(data.message+"  Check Notifications");
         var list=document.getElementById("notify_list");
+        var notifyNum=document.getElementById("notifyNum");
+          notifyNum.innerText= list.childNodes.length;
             list.innerHTML+="<li class='list-item'><a href='<%= @host %>/orders/"+data.id+"'>"+data.message+"</a></li>";
     });
 
   </script>
   <!---------------------------------------- Test Pusher ---------------------------------------------------------------->
+
+  <!------------------------------------------------------Items Pusher ------------------------------------------------->
+  <script>
+
+      var channelItems = pusher.subscribe('items-channel');
+      channelItems.bind('last-items', function(data) {
+//          alert('Received my-event with message: ' + data.message.name);
+          var newItem=document.getElementById("bodyItemsTable");
+          var newRow=document.createElement("tr");
+
+          var td1=document.createElement("td");
+          td1.innerText=data.message.name;
+          newRow.appendChild(td1);
+
+          var td2=document.createElement("td");
+          td2.innerText=data.username;
+          newRow.appendChild(td2);
+
+          var td3=document.createElement("td");
+          td3.innerText=data.ordermeal;
+          newRow.appendChild(td3);
+
+          var td4=document.createElement("td");
+          td4.innerText=data.message.amount;
+          newRow.appendChild(td4);
+
+          var td5=document.createElement("td");
+          td5.innerText=data.message.price;
+          newRow.appendChild(td5);
+
+          var td6=document.createElement("td");
+          td6.innerText=data.message.comment;
+          newRow.appendChild(td6);
+
+          newItem.appendChild(newRow);
+
+
+      });
+  </script>
+  <!------------------------------------------------------End[Items Pusher] -------------------------------------------->
   <!--<script>-->
   <!--
 //  $(function (e) {
