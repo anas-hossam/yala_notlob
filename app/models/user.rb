@@ -6,9 +6,9 @@ class User < ApplicationRecord
  #devise :omniauthable, :omniauth_providers => [:facebook]
  acts_as_followable
  acts_as_follower
-  has_many :groups#method return arr of obj
-  has_many :user_groups
-  has_many :groups, through: :user_groups
+  has_many :groups, dependent: :destroy#method return arr of obj
+  has_many :user_groups, dependent: :destroy
+  has_many :groups, through: :user_groups, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :items, dependent: :destroy
   has_many :notifications, dependent: :destroy
