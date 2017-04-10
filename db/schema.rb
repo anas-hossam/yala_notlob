@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403225517) do
+ActiveRecord::Schema.define(version: 20170409211633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(version: 20170403225517) do
     t.boolean  "joined"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "order_id"
+    t.index ["order_id"], name: "index_order_details_on_order_id", using: :btree
     t.index ["user_id"], name: "index_order_details_on_user_id", using: :btree
   end
 
@@ -118,6 +120,7 @@ ActiveRecord::Schema.define(version: 20170403225517) do
   add_foreign_key "items", "orders"
   add_foreign_key "items", "users"
   add_foreign_key "notifications", "users"
+  add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "users"
   add_foreign_key "orders", "groups"
   add_foreign_key "orders", "users"

@@ -79,6 +79,6 @@ class OrderDetailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_detail_params
-      params.require(:order_detail).permit(:user_id, :joined)
+      params.require(:order_detail).permit(:user_id, :joined, :order_id)
     end
 end

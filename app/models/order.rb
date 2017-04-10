@@ -1,7 +1,8 @@
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :group
-  has_many :items
+  has_many :items, dependent: :destroy
+  has_many :order_details, dependent: :destroy
   has_attached_file :order_image,
                       :default_url => "/app/assets/images/missing.png",
                       styles: { thumb: ["64x64#", :jpg],

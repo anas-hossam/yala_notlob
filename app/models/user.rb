@@ -9,10 +9,10 @@ class User < ApplicationRecord
   has_many :groups#method return arr of obj
   has_many :user_groups
   has_many :groups, through: :user_groups
-  has_many :orders
-  has_many :items
-  has_many :notifications
-  has_many :order_details
+  has_many :orders, dependent: :destroy
+  has_many :items, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+  has_many :order_details, dependent: :destroy
 
 
 # def name

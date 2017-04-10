@@ -13,6 +13,17 @@ class OrdersController < ApplicationController
     @order=Order.find(params[:id])
     @items = @order.items.all
     @item=@order.items.new
+    @order_details = @order.order_details.all
+    @friends_Invited=[]
+    @friends_Joined=[]
+    @order_details.each do |i|
+      @user=User.find(i.user_id)
+      @friends_Invited.push(@user.name)
+      if i.joined == true
+        @user=User.find(i.user_id)
+        @friends_Joined.push(@user.name)
+      end
+    end
     render template: 'items/index'
   end
 
@@ -37,47 +48,51 @@ class OrdersController < ApplicationController
     puts "test000"
     invited= params[:friends_invited]
 
-    invited.each do |i|
-      @group_invited = Group.where(name: i)
-      @user_invited = User.where(name: i)
-      if(@group_invited.present?)
-        puts "test-group"
-        @group_id = @group_invited.ids
-        puts @group_id
-        @members = UserGroup.where(group_id: @group_id).all
-        puts @members.inspect
-        @members.each do |m|
-          @group_invite = OrderDetail.new
-          @group_invite.user_id = m.user_id
-          @group_invite.joined = 0
-         puts @group_invite.inspect
-          if @group_invite.save
-            puts "Group Invited"
-          end
-        end
-      else
-        puts "test-user"
-        user_invs = OrderDetail.new
-        puts @user_invited.ids.class
-        user_invs.user_id = @user_invited.ids[0]
-        puts user_invs.user_id
-        user_invs.joined = 0
-        puts user_invs.inspect
-        if user_invs.save
-          puts "User Invited"
-        end
-      end
-    end
     puts params.inspect
     @order = Order.new(order_params)
     @order.user_id = current_user.id
     @order.invited = invited.length
-    @order.joined = invited.length
+    @order.joined = 0
     @order.status = "waiting"
     respond_to do |format|
       if @order.save
+
+        invited.each do |i|
+          @group_invited = Group.where(name: i)
+          @user_invited = User.where(name: i)
+          if(@group_invited.present?)
+            puts "test-group"
+            @group_id = @group_invited.ids
+            puts @group_id
+            @members = UserGroup.where(group_id: @group_id).all
+            puts @members.inspect
+            @members.each do |m|
+              @group_invite = OrderDetail.new
+              @group_invite.user_id = m.user_id
+              @group_invite.order_id = @order.id
+              @group_invite.joined = 0
+              puts @group_invite.inspect
+              if @group_invite.save
+                puts "Group Invited"
+              end
+            end
+          else
+            puts "test-user"
+            user_invs = OrderDetail.new
+            puts @user_invited.ids.class
+            user_invs.user_id = @user_invited.ids[0]
+            user_invs.order_id = @order.id
+            puts user_invs.user_id
+            user_invs.joined = 0
+            puts user_invs.inspect
+            if user_invs.save
+              puts "User Invited"
+            end
+          end
+        end
         format.html { redirect_to orders_path, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
+
         ##################################### test pusher####################################
         Pusher.trigger('my-channel', 'my-event', {
             message: current_user.name.to_s<<" invited  "<<invited.join(",")<<" to "<<@order.meal,

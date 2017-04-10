@@ -1,5 +1,63 @@
 <p id="notice"><%= notice %></p>
 
+<!------------------------------------------------- Modal for friends invited ------------------------------------------->
+<button type="button" style="margin-left: 5px" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal1" data-whatever="@mdo">Friends Invited</button>
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel">Friends Invited</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% @friends_Invited.each do |i| %>
+            <p class="card-text" style="border: 2px double green;text-align: center;font-size: 25px;width: 25%;padding: 5px;float: left">
+              <span class="text-muted">UserName</span><br><br>
+              <%= i %>
+            </p>
+        <% end %>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!------------------------------------------------End[ Modal for friends invited ]------------------------------------------->
+
+<!------------------------------------------------- Modal for friends Joined ------------------------------------------->
+<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Friends Joined</button>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel">Friends Joined</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% @friends_Joined.each do |i| %>
+            <p class="card-text" style="border: 2px double green;text-align: center;font-size: 25px;width: 25%;padding: 5px;float: left">
+              <span class="text-muted">UserName</span><br><br>
+              <%= i %>
+            </p>
+        <% end %>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!------------------------------------------------End[ Modal for friends Joined ]------------------------------------------->
+
 <h1>Order Details</h1>
 <div id="all-items" style="float:right">
 
@@ -33,6 +91,9 @@
   </tbody>
 </table>
 </div>
+
+
+
 <div style="float:left;">
   <%= form_for([@order,@order.items.build]) do |f| %>
 

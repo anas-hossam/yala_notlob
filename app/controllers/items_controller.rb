@@ -5,6 +5,8 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     @order=Order.find(params[:order_id])
+
+
     @items = @order.items.all
     @item = @order.items.new
   end
@@ -35,6 +37,23 @@ class ItemsController < ApplicationController
       if @item.save
         format.html { redirect_to order_path(@order), notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
+        ##################################### Update Join ################################################
+        @order.joined += 1
+        @order.save
+        ########################
+        @order_detail = @order.order_details.where(user_id: @item.user_id)
+        puts "kkkkkkkkkkkkkkkkkkkk "<<@order_detail.inspect
+        if @order_detail[0] != nil
+          @order_detail[0].joined = 1
+          @order_detail[0].save
+          puts "joined "<<@order_detail.inspect
+        else
+          format.html { redirect_to order_path(@order), notice: 'You must be one of Invited Friends' }
+        end
+
+
+
+        ###########################################End[Update Join]#######################################
         Pusher.trigger('items-channel', 'last-items', {
             message: @item,
             username: current_user.name,
@@ -46,6 +65,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+
 
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
