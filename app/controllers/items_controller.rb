@@ -35,25 +35,23 @@ class ItemsController < ApplicationController
     @item.user_id = current_user.id
     respond_to do |format|
       if @item.save
-        format.html { redirect_to order_path(@order), notice: 'Item was successfully created.' }
-        format.json { render :show, status: :created, location: @item }
         ##################################### Update Join ################################################
         @order.joined += 1
         @order.save
         ########################
         @order_detail = @order.order_details.where(user_id: @item.user_id)
-        puts "kkkkkkkkkkkkkkkkkkkk "<<@order_detail.inspect
-        if @order_detail[0] != nil
+        puts "kkk"<<@order_detail.inspect
+        if @order_detail.empty?
+          format.html { redirect_to order_path(@order), notice: 'You should be one of Invited Friends' }
+        else
           @order_detail[0].joined = 1
           @order_detail[0].save
           puts "joined "<<@order_detail.inspect
-        else
-          format.html { redirect_to order_path(@order), notice: 'You must be one of Invited Friends' }
         end
-
-
-
         ###########################################End[Update Join]#######################################
+        format.html { redirect_to order_path(@order), notice: 'Item was successfully created.' }
+        format.json { render :show, status: :created, location: @item }
+
         Pusher.trigger('items-channel', 'last-items', {
             message: @item,
             username: current_user.name,
