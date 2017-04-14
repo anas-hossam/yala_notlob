@@ -48,23 +48,31 @@ class GroupsController < ApplicationController
 
                 redirect_to  group_path(@group.id)
             else
+            
+            flash[:notice] = 'Oopps! Frined aready exist!!'
+              
 
                   redirect_to  group_path(@group.id)
             end
          else
-
+             
+	     flash[:notice] = 'Oopps! a user not a friend '
+             flash[:notice] = 'Oopps! You Can Not Add YouSelf To Group!!'	
             redirect_to  group_path(@group.id)
          end
        else
-
+            
+            flash[:notice] = 'Oopps! You Can Not Add YouSelf To Group!!'
           redirect_to  group_path(@group.id)
        end
      else
-
+             
+             flash[:notice] = 'Oopps! Not A User!'
       redirect_to  group_path(@group.id)
      end
    else
-
+        
+        flash[:notice] = 'Oopps! Inser An Email !'
     redirect_to group_path(@group.id)
  end
 
