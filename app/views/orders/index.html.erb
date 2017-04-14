@@ -2,9 +2,10 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Orders</h1>
-<%= link_to 'New Order', new_order_path,id: "newOrder",class: "pull-right" %>
+<%= link_to 'New Order', new_order_path,id: "newOrder",class: 'pull-right',:class=>'btn btn-sm btn-success' %>
 
-<table class="table table-responsive table-bordered table-hover">
+<table ducts</h1>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Meal</th>
@@ -31,17 +32,17 @@
         <td>
           <%= order.status %>
           <% if order.user_id == current_user.id && order.status != "Finished" %>
-              <span><input class="complete btn btn-primary" name="<%= order.id %>" value="Completed" type="submit"></span>
+              <span><input class="complete btn btn-xs btn-primary" name="<%= order.id %>" value="Completed" type="submit"></span>
           <% end %>
         </td>
         <td><div class="media">
           <div class="media-left">
           <%= link_to image_tag(order.order_image.url(:thumb), class: 'media-object'), order.order_image.url, target: '_blank' %>          </div>
-           <%= link_to 'Remove', order_path(order), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'} %>
+           <%= link_to 'Remove', order_path(order), class: 'btn btn-xs btn-danger', method: :delete, data: {confirm: 'Are you sure?'} %>
         </td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', order, :class => 'btn btn-sm btn-success' %></td>
+        <td><%= link_to 'Edit', edit_order_path(order), :class => 'btn btn-sm btn-warning' %></td>
+        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-sm btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>

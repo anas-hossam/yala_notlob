@@ -17,9 +17,9 @@
         <td><%= order_detail.user.name %></td>
         <td><%= order_detail.order %></td>
         <td><%= order_detail.joined %></td>
-        <td><%= link_to 'Show', order_detail %></td>
-        <td><%= link_to 'Edit', edit_order_detail_path(order_detail) %></td>
-        <td><%= link_to 'Destroy', order_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', order_detail, :class => 'btn btn-sm btn-success' %></td>
+        <td><%= link_to 'Edit', edit_order_detail_path(order_detail), :class => 'btn btn-sm btn-warning' %></td>
+        <td><%= link_to 'Destroy', order_detail, method: :delete, data: { confirm: 'Are you sure?' } , :class => 'btn btn-sm btn-danger'%></td>
       </tr>
     <% end %>
   </tbody>
